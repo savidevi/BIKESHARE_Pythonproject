@@ -52,19 +52,15 @@ def load_data(city, month, day):
     
     df['Start Time']=pd.to_datetime(df['Start Time'])
     df['month']=df['Start Time'].dt.month
-
     df['day of week']=df['Start Time'].dt.weekday_name
 
     if month != 'all':
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-                                              
         df=df[df['month']==month]
+
     if day != 'all':
-                         
         df=df[df['day of week']==day.title()]                     
-
-
     return df
 
 
@@ -84,7 +80,6 @@ def time_stats(df):
     df['hour']=df['Start Time'].dt.hour
     print("Most common start hour: ",df['hour'].mode()[0])
     
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -94,8 +89,7 @@ def station_stats(df):
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    df['start_time']=start_time
-    
+        
     # display most commonly used start station
     print("Most commonly used start station: ",df['Start Station'].mode()[0])                     
     
@@ -104,7 +98,6 @@ def station_stats(df):
     
     # display most frequent combination of start station and end station trip
     print("Most common combination of start station and end station trip: ",(df['Start Station']+' , '+df['End Station']).mode()[0])
-     
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -117,17 +110,13 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-    
     total_time=pd.to_timedelta(df['Trip Duration'].sum(),unit='s')
-        
-    
     print("Total travel time: {}".format(total_time))
 
     # display mean travel time
     avg_time=df['Trip Duration'].mean()/60
     print("Avg. travel time: {} minutes".format(avg_time))
     
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -144,6 +133,7 @@ def user_info(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
     
+	
 def user_stats(df):
     """Displays statistics on bikeshare users gender and Birth Year."""
 
@@ -160,10 +150,10 @@ def user_stats(df):
     print("Most recent year of birth: ",df['Birth Year'].max())
     print("Most common year of birth: ",df['Birth Year'].mode()[0])
         
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+	
 def show_data(df):
     # To show raw data of current city(5 rows at a time)
     show=input("\nDo you like to see raw data for current city yes/no:\n").lower()
@@ -180,7 +170,6 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
